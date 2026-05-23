@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0A0E29" />
+      <stop offset="100%" stop-color="#151A42" />
+    </linearGradient>
+
+    <linearGradient id="flowGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00F2FE" />
+      <stop offset="45%" stop-color="#4FACFE" />
+      <stop offset="100%" stop-color="#7F00FF" />
+    </linearGradient>
+
+    <filter id="dropShadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#000000" flood-opacity="0.45" />
+    </filter>
+  </defs>
+
+  <rect width="512" height="512" rx="112" fill="url(#bgGrad)" />
+
+  <g filter="url(#dropShadow)">
+    <path d="M 180 420 
+             C 180 340, 190 240, 200 170
+             C 205 130, 230 110, 270 110
+             L 360 110
+             C 385 110, 395 125, 385 145
+             L 370 175
+             C 360 195, 335 200, 310 200
+             L 265 200
+             C 250 200, 245 210, 242 225
+             L 235 255
+             C 230 275, 245 280, 265 280
+             L 330 280
+             C 355 280, 365 295, 355 315
+             L 342 340
+             C 332 360, 310 365, 285 365
+             L 220 365
+             C 195 365, 180 390, 180 420 
+             Z" 
+          fill="url(#flowGrad)" />
+          
+    <circle cx="305" cy="410" r="20" fill="#00F2FE" opacity="0.9" />
+  </g>
+</svg>
