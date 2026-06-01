@@ -1,13 +1,13 @@
 // ==========================================================================
-// 0. MASSA DE DADOS ACADÊMICA (MOCK DATA)
+// 0. MASSA DE DADOS ACADÊMICA (MOCK DATA) openLesson
 // ==========================================================================
 const courseData = [
     {
         id: "mod-1",
         title: "Introdução ao Desenvolvimento Web",
         lessons: [
-            { id: "l-1", title: "Como a Internet funciona" },
-            { id: "l-2", title: "Configurando o ambiente de desenvolvimento" },
+            { id: "l-1", title: "Como a Internet funciona" , videoUrl: "assets/Videos/ComoInternetFunciona.mp4"},
+            { id: "l-2", title: "Configurando o ambiente de desenvolvimento" , videoUrl: "assets/Videos/ConfigAmbienteDesen.mp4"},
             { id: "l-3", title: "Sua primeira página HTML" }
         ]
     },
@@ -329,6 +329,8 @@ function updateProgressUI() {
 function openLesson(moduleId, lessonId) {
     const currentMod = courseData.find(m => m.id === moduleId);
     const currentLes = currentMod.lessons.find(l => l.id === lessonId);
+    // 1. Busca a aula correspondente
+    let urlVideo = null;
 
     userState.currentLesson = currentLes;
 
@@ -362,4 +364,49 @@ function openLesson(moduleId, lessonId) {
     }
 
     navigateTo("lesson-screen");
+
+    for (const modulo of courseData) {
+        const aula = modulo.lessons.find(l => l.id === lessonId);
+        if (aula) {
+            urlVideo = aula.videoUrl;
+            break; // Para a busca assim que encontrar
+        }
+    }
+        // 2. Seleciona o elemento que vai ser substituído.
+        const elementoAtual = document.querySelector('.video-placeholder');
+        if (!elementoAtual) return;
+
+    if (!urlVideo) {
+        const placeholderDiv = document.createElement('div');
+        
+        // Aplica as exatas mesmas classes e estilos que configurou
+        placeholderDiv.className = "video-placeholder bg-dark rounded-3 d-flex flex-column align-items-center justify-content-center text-white-50 mb-3 shadow-sm";
+        placeholderDiv.style.cssText = "min-height: 250px; aspect-ratio: 16/9;";
+        
+        // Mantém o seu HTML interno (Ícone + Texto)
+        placeholderDiv.innerHTML = `
+            <i class="ri-play-circle-line display-2" aria-hidden="true"></i>
+            <p class="small mt-2">Player de Vídeo Educacional</p>
+        `;
+
+        // Substitui o elemento na tela pela sua div padrão
+        elementoAtual.replaceWith(placeholderDiv);
+        return; 
+    } {
+
+        // 3. Cria o novo vídeo e aplica as configurações (como fizemos antes)
+        const videoCurso = document.createElement('video');
+        videoCurso.className = elementoAtual.className; 
+        videoCurso.style.cssText = elementoAtual.style.cssText;
+        videoCurso.style.width = '100%';
+        videoCurso.style.objectFit = 'cover';
+
+        // 4. Insere a URL encontrada dinamicamente
+        videoCurso.src = urlVideo;
+        videoCurso.controls = true;
+        videoCurso.autoplay = true; // Como foi um clique do usuário, é interessante dar autoplay
+
+        // 5. Substitui na tela
+        elementoAtual.replaceWith(videoCurso);
+    }
 }
