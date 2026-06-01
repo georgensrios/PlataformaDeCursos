@@ -6,18 +6,18 @@ const courseData = [
         id: "mod-1",
         title: "Introdução ao Desenvolvimento Web",
         lessons: [
-            { id: "l-1", title: "Como a Internet funciona" , videoUrl: "assets/Videos/ComoInternetFunciona.mp4"},
-            { id: "l-2", title: "Configurando o ambiente de desenvolvimento" , videoUrl: "assets/Videos/ConfigAmbienteDesen.mp4"},
-            { id: "l-3", title: "Sua primeira página HTML" }
+            { id: "l-1", title: "Como a Internet funciona", videoUrl: "assets/Videos/ComoInternetFunciona.mp4"},
+            { id: "l-2", title: "Configurando o ambiente de desenvolvimento", videoUrl: "assets/Videos/ConfigAmbienteDesen.mp4"},
+            { id: "l-3", title: "Sua primeira página HTML", videoUrl: "assets/Videos/PrimeiraPaginaHTML.mp4"}
         ]
     },
     {
         id: "mod-2",
         title: "Estilização Avançada com CSS",
         lessons: [
-            { id: "l-4", title: "Dominando o CSS Flexbox" },
-            { id: "l-5", title: "Layouts modernos com CSS Grid" },
-            { id: "l-6", title: "Responsividade e Conceitos Mobile-First" }
+            { id: "l-4", title: "Dominando o CSS Flexbox", videoUrl: "assets/Videos/DominandoFlexbox.mp4"},
+            { id: "l-5", title: "Layouts modernos com CSS Grid", videoUrl: "assets/Videos/LayoutsGrid.mp4"},
+            { id: "l-6", title: "Responsividade e Conceitos Mobile-First", videoUrl: "assets/Videos/MobileFirst.mp4"}
         ]
     },
     {
@@ -372,7 +372,7 @@ function openLesson(moduleId, lessonId) {
             break; // Para a busca assim que encontrar
         }
     }
-        // 2. Seleciona o elemento que vai ser substituído.
+        //Seleciona o elemento que vai ser substituído.
         const elementoAtual = document.querySelector('.video-placeholder');
         if (!elementoAtual) return;
 
@@ -392,21 +392,21 @@ function openLesson(moduleId, lessonId) {
         // Substitui o elemento na tela pela sua div padrão
         elementoAtual.replaceWith(placeholderDiv);
         return; 
-    } {
+    }else {
 
-        // 3. Cria o novo vídeo e aplica as configurações (como fizemos antes)
+        // Cria o novo vídeo e aplica as configurações (como fizemos antes)
         const videoCurso = document.createElement('video');
         videoCurso.className = elementoAtual.className; 
         videoCurso.style.cssText = elementoAtual.style.cssText;
         videoCurso.style.width = '100%';
         videoCurso.style.objectFit = 'cover';
 
-        // 4. Insere a URL encontrada dinamicamente
+        // Insere a URL encontrada dinamicamente
         videoCurso.src = urlVideo;
         videoCurso.controls = true;
         videoCurso.autoplay = true; // Como foi um clique do usuário, é interessante dar autoplay
 
-        // 5. Substitui na tela
+        // Substitui na tela
         elementoAtual.replaceWith(videoCurso);
     }
 }
