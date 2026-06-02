@@ -24,9 +24,9 @@ const courseData = [
         id: "mod-3",
         title: "Lógica de Programação com JavaScript",
         lessons: [
-            { id: "l-7", title: "Variáveis, Tipos de Dados e Operadores" },
-            { id: "l-8", title: "Estruturas de Condição e Repetição" },
-            { id: "l-9", title: "Manipulação Avançada de DOM" }
+            { id: "l-7", title: "Variáveis, Tipos de Dados e Operadores", videoUrl: "assets/Videos/VariáveisOperadores.mp4"},
+            { id: "l-8", title: "Estruturas de Condição e Repetição", videoUrl: "assets/Videos/Estr.CondiçãoRepetição.mp4"},
+            { id: "l-9", title: "Manipulação Avançada de DOM", videoUrl: "assets/Videos/ManipulaçãoDOM.mp4"}
         ]
     }
 ];
