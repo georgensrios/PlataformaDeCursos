@@ -162,9 +162,6 @@ function setupEventListeners() {
         navigateTo("home-screen");
     });
 
-    document.getElementById("btn-back-about").addEventListener("click", () => {
-        navigateTo("home-screen");
-    });
 
     // Sincronização do Checkbox de Assistida
     document.getElementById("chk-watched").addEventListener("change", (e) => {
@@ -281,24 +278,29 @@ function setupSidebarNavigation() {
         });
     }
 
-    // #about - navega para a tela Sobre a Plataforma com player de vídeo
+    // #about - toggle do card Sobre a Plataforma com player de vídeo
     if (btnAbout) {
         btnAbout.addEventListener('click', (e) => {
             e.preventDefault();
-            navigateTo('about-screen');
+            const aboutInfo = document.getElementById('about-info');
+            if (aboutInfo) {
+                aboutInfo.classList.toggle('d-none');
 
-            // Substitui o placeholder pelo vídeo institucional
-            const aboutPlayer = document.getElementById('about-player');
-            if (aboutPlayer) {
-                const video = document.createElement('video');
-                video.className = aboutPlayer.className;
-                video.style.cssText = aboutPlayer.style.cssText;
-                video.style.width = '100%';
-                video.style.objectFit = 'cover';
-                video.src = aboutVideoUrl;
-                video.controls = true;
-                video.autoplay = true;
-                aboutPlayer.replaceWith(video);
+                // Se está mostrando, carrega o vídeo
+                if (!aboutInfo.classList.contains('d-none')) {
+                    const aboutPlayer = document.getElementById('about-player');
+                    if (aboutPlayer) {
+                        const video = document.createElement('video');
+                        video.className = aboutPlayer.className;
+                        video.style.cssText = aboutPlayer.style.cssText;
+                        video.style.width = '100%';
+                        video.style.objectFit = 'cover';
+                        video.src = aboutVideoUrl;
+                        video.controls = true;
+                        video.autoplay = true;
+                        aboutPlayer.replaceWith(video);
+                    }
+                }
             }
         });
     }
