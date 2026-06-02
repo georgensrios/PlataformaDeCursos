@@ -77,6 +77,19 @@
             border-left-color: #fff;
             font-weight: 600;
         }
+        @media (min-width: 992px) {
+            #hamburguer.d-none,
+            #log-off.d-none {
+                display: flex !important;
+            }
+        }
+        /* Safe area para PWA (notch iPhone) */
+        body {
+            padding-top: env(safe-area-inset-top);
+        }
+        .text-justify {
+            text-align: justify !important;
+        }
         /* Classe para transição suave de fade-in ao trocar de tela */
         .fade-in-effect {
             animation: fadeIn 0.4s ease-in-out;

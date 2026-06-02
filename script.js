@@ -105,8 +105,8 @@ function checkLoginSession() {
 // ==========================================================================
 function setupEventListeners() {
     
-    // Efeito suave aplicado diretamente no fluxo do clique de Login
-    document.getElementById("btn-entrar-login").addEventListener("click", () => {
+    // Função de autenticação
+    function realizarLogin() {
         const usuarioInserido = document.getElementById("username").value.trim();
         const shadowPassword = document.getElementById("password").value;
 
@@ -129,6 +129,23 @@ function setupEventListeners() {
         } else {
             alert("⚠️ Usuário ou senha incorretos! Digite admin e 1234.");
         }
+    }
+
+    // Clique no botão de login
+    document.getElementById("btn-entrar-login").addEventListener("click", realizarLogin);
+
+    // Captura a tecla Enter nos campos do formulário
+    document.getElementById("username").addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            realizarLogin();
+        }
+    });
+    document.getElementById("password").addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            realizarLogin();
+        }
     });
 
     // Ação do Modal de Logout Confirmado
@@ -142,6 +159,10 @@ function setupEventListeners() {
     });
 
     document.getElementById("btn-back-home").addEventListener("click", () => {
+        navigateTo("home-screen");
+    });
+
+    document.getElementById("btn-back-about").addEventListener("click", () => {
         navigateTo("home-screen");
     });
 
@@ -185,6 +206,21 @@ function setupEventListeners() {
         }
     });
 
+    // Alternância do menu hamburguer (mobile)
+    document.getElementById("btn-hamburguer").addEventListener("click", () => {
+        const hamburguer = document.getElementById("hamburguer");
+        const logOff = document.getElementById("log-off");
+        const isHidden = hamburguer.classList.contains("d-none");
+        
+        if (isHidden) {
+            hamburguer.classList.remove("d-none");
+            logOff.classList.remove("d-none");
+        } else {
+            hamburguer.classList.add("d-none");
+            logOff.classList.add("d-none");
+        }
+    });
+
     // Controle de salvamento automático no Textarea
     const textarea = document.getElementById("lesson-notes");
     const statusNote = document.getElementById("notes-status");
@@ -207,34 +243,65 @@ function setupEventListeners() {
 // ==========================================================================
 // 4. ALTERNÂNCIA DE SUB-VIEWS NA SIDEBAR (CURSOS / DOWNLOADS)
 // ==========================================================================
+// URL do vídeo institucional (Sobre a Plataforma)
+const aboutVideoUrl = "assets/Videos/VideoInstitucional.mp4";
+
 function setupSidebarNavigation() {
-    const btnCursos = document.getElementById('nav-courses');
     const btnDownload = document.getElementById('nav-download');
+    const btnCursos = document.getElementById('nav-courses');
     const viewCursos = document.getElementById('sub-view-courses');
     const viewDownload = document.getElementById('sub-view-download');
+    const btnAbout = document.getElementById('about');
+    const btnDevelopers = document.getElementById('developers');
 
-    btnDownload.addEventListener('click', (e) => {
-        e.preventDefault();
-        btnCursos.classList.remove('text-white', 'active');
-        btnCursos.classList.add('text-white-50');
-        btnDownload.classList.remove('text-white-50');
-        btnDownload.classList.add('text-white', 'active');
-        
-        viewCursos.classList.add('d-none');
-        viewDownload.classList.remove('d-none');
-    });
+    // #nav-download na tela de login: toggle do conteúdo
+    if (btnDownload) {
+        btnDownload.addEventListener('click', (e) => {
+            e.preventDefault();
+            const downloadInfo = document.getElementById('download-info');
+            downloadInfo.classList.toggle('d-none');
+        });
+    }
 
-    btnCursos.addEventListener('click', (e) => {
-        e.preventDefault();
-        btnDownload.classList.remove('text-white', 'active');
-        btnDownload.classList.add('text-white-50');
-        btnCursos.classList.remove('text-white-50');
-        btnCursos.classList.add('text-white', 'active');
-        
-        viewDownload.classList.add('d-none');
-        viewCursos.classList.remove('d-none');
-        renderModules();
-    });
+    if (btnCursos) {
+        btnCursos.addEventListener('click', (e) => {
+            e.preventDefault();
+            viewDownload.classList.add('d-none');
+            viewCursos.classList.remove('d-none');
+            renderModules();
+        });
+    }
+
+    // #developers - toggle do card de desenvolvedores
+    if (btnDevelopers) {
+        btnDevelopers.addEventListener('click', (e) => {
+            e.preventDefault();
+            const devInfo = document.getElementById('developers-info');
+            if (devInfo) devInfo.classList.toggle('d-none');
+        });
+    }
+
+    // #about - navega para a tela Sobre a Plataforma com player de vídeo
+    if (btnAbout) {
+        btnAbout.addEventListener('click', (e) => {
+            e.preventDefault();
+            navigateTo('about-screen');
+
+            // Substitui o placeholder pelo vídeo institucional
+            const aboutPlayer = document.getElementById('about-player');
+            if (aboutPlayer) {
+                const video = document.createElement('video');
+                video.className = aboutPlayer.className;
+                video.style.cssText = aboutPlayer.style.cssText;
+                video.style.width = '100%';
+                video.style.objectFit = 'cover';
+                video.src = aboutVideoUrl;
+                video.controls = true;
+                video.autoplay = true;
+                aboutPlayer.replaceWith(video);
+            }
+        });
+    }
 }
 
 // ==========================================================================
