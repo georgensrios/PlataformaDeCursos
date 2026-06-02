@@ -1,5 +1,5 @@
 // ==========================================================================
-// 0. MASSA DE DADOS ACADÊMICA (MOCK DATA) openLesson
+// 0. MASSA DE DADOS ACADÊMICA (MOCK DATA)
 // ==========================================================================
 const courseData = [
     {
@@ -162,7 +162,6 @@ function setupEventListeners() {
         navigateTo("home-screen");
     });
 
-
     // Sincronização do Checkbox de Assistida
     document.getElementById("chk-watched").addEventListener("change", (e) => {
         if (!userState.currentLesson) return;
@@ -177,27 +176,25 @@ function setupEventListeners() {
         saveStateToLocalStorage();
     });
 
-    // LÓGICA DE NAVEGAÇÃO CORRIGIDA: BOTÃO PRÓXIMA AULA (TRAVA NO FIM DO MÓDULO)
+    // BOTÃO PRÓXIMA AULA (TRAVA NO FIM DO MÓDULO)
     document.getElementById("btn-next-lesson").addEventListener("click", () => {
         if (!userState.currentLesson) return;
         
         let currentModIndex = courseData.findIndex(m => m.lessons.some(l => l.id === userState.currentLesson.id));
         let currentLesIndex = courseData[currentModIndex].lessons.findIndex(l => l.id === userState.currentLesson.id);
 
-        // Avança apenas se houver uma próxima aula dentro do mesmo módulo
         if (currentLesIndex < courseData[currentModIndex].lessons.length - 1) {
             openLesson(courseData[currentModIndex].id, courseData[currentModIndex].lessons[currentLesIndex + 1].id);
         }
     });
 
-    // LÓGICA DE NAVEGAÇÃO CORRIGIDA: BOTÃO AULA ANTERIOR (TRAVA NO INÍCIO DO MÓDULO)
+    // BOTÃO AULA ANTERIOR (TRAVA NO INÍCIO DO MÓDULO)
     document.getElementById("btn-prev-lesson").addEventListener("click", () => {
         if (!userState.currentLesson) return;
 
         let currentModIndex = courseData.findIndex(m => m.lessons.some(l => l.id === userState.currentLesson.id));
         let currentLesIndex = courseData[currentModIndex].lessons.findIndex(l => l.id === userState.currentLesson.id);
 
-        // Recua apenas se houver uma aula anterior dentro do mesmo módulo
         if (currentLesIndex > 0) {
             openLesson(courseData[currentModIndex].id, courseData[currentModIndex].lessons[currentLesIndex - 1].id);
         }
@@ -240,7 +237,6 @@ function setupEventListeners() {
 // ==========================================================================
 // 4. ALTERNÂNCIA DE SUB-VIEWS NA SIDEBAR (CURSOS / DOWNLOADS)
 // ==========================================================================
-// URL do vídeo institucional (Sobre a Plataforma)
 const aboutVideoUrl = "assets/Videos/VideoInstitucional.mp4";
 
 function setupSidebarNavigation() {
@@ -251,7 +247,6 @@ function setupSidebarNavigation() {
     const btnAbout = document.getElementById('about');
     const btnDevelopers = document.getElementById('developers');
 
-    // #nav-download na tela de login: toggle do conteúdo
     if (btnDownload) {
         btnDownload.addEventListener('click', (e) => {
             e.preventDefault();
@@ -269,16 +264,18 @@ function setupSidebarNavigation() {
         });
     }
 
-    // #developers - toggle do card de desenvolvedores
     if (btnDevelopers) {
         btnDevelopers.addEventListener('click', (e) => {
             e.preventDefault();
             const devInfo = document.getElementById('developers-info');
-            if (devInfo) devInfo.classList.toggle('d-none');
+            if (devInfo) {
+                // Alterna a exibição: se tiver oculto mostra, se estiver visível oculta.
+                devInfo.classList.toggle('d-none');
+            }
         });
     }
 
-    // #about - toggle do card Sobre a Plataforma com player de vídeo
+    // #about - usa innerHTML para não quebrar no segundo clique
     if (btnAbout) {
         btnAbout.addEventListener('click', (e) => {
             e.preventDefault();
@@ -286,19 +283,16 @@ function setupSidebarNavigation() {
             if (aboutInfo) {
                 aboutInfo.classList.toggle('d-none');
 
-                // Se está mostrando, carrega o vídeo
                 if (!aboutInfo.classList.contains('d-none')) {
                     const aboutPlayer = document.getElementById('about-player');
                     if (aboutPlayer) {
-                        const video = document.createElement('video');
-                        video.className = aboutPlayer.className;
-                        video.style.cssText = aboutPlayer.style.cssText;
-                        video.style.width = '100%';
-                        video.style.objectFit = 'cover';
-                        video.src = aboutVideoUrl;
-                        video.controls = true;
-                        video.autoplay = true;
-                        aboutPlayer.replaceWith(video);
+                        aboutPlayer.innerHTML = `
+                            <video
+                                src="${aboutVideoUrl}"
+                                controls
+                                autoplay
+                                style="width:100%; height:100%; display:block; object-fit:cover; border-radius: inherit;">
+                            </video>`;
                     }
                 }
             }
@@ -393,13 +387,11 @@ function updateProgressUI() {
 }
 
 // ==========================================================================
-// 6. OPERAÇÕES DE CONFIGURAÇÃO E BLOQUEIO DE BOTÕES (FOCO ATIVO)
+// 6. ABERTURA DE AULA — PLAYER CORRIGIDO (SEM replaceWith)
 // ==========================================================================
 function openLesson(moduleId, lessonId) {
     const currentMod = courseData.find(m => m.id === moduleId);
     const currentLes = currentMod.lessons.find(l => l.id === lessonId);
-    // 1. Busca a aula correspondente
-    let urlVideo = null;
 
     userState.currentLesson = currentLes;
 
@@ -411,22 +403,18 @@ function openLesson(moduleId, lessonId) {
     document.getElementById("lesson-notes").value = savedNotes;
     document.getElementById("notes-status").innerHTML = "<i class='ri-checkbox-circle-line text-success'></i> Todas as alterações salvas";
 
-    // ENGENHARIA DE VALIDAÇÃO DOS BOTÕES LIMITADOS AO MÓDULO ATUAL
+    // Controle dos botões Anterior / Próxima
     const btnPrev = document.getElementById('btn-prev-lesson');
     const btnNext = document.getElementById('btn-next-lesson');
+    const currentLesIndex = currentMod.lessons.findIndex(l => l.id === lessonId);
 
-    let currentLesIndex = currentMod.lessons.findIndex(l => l.id === lessonId);
-
-    // Desabilita "Anterior" se for a primeira aula DO MÓDULO ATUAL
     if (currentLesIndex === 0) {
         btnPrev.setAttribute('disabled', 'true');
     } else {
         btnPrev.removeAttribute('disabled');
     }
 
-    // Desabilita "Próxima" se for a última aula DO MÓDULO ATUAL
-    const indexUltimaAulaDoModulo = currentMod.lessons.length - 1;
-    if (currentLesIndex === indexUltimaAulaDoModulo) {
+    if (currentLesIndex === currentMod.lessons.length - 1) {
         btnNext.setAttribute('disabled', 'true');
     } else {
         btnNext.removeAttribute('disabled');
@@ -434,48 +422,29 @@ function openLesson(moduleId, lessonId) {
 
     navigateTo("lesson-screen");
 
-    for (const modulo of courseData) {
-        const aula = modulo.lessons.find(l => l.id === lessonId);
-        if (aula) {
-            urlVideo = aula.videoUrl;
-            break; // Para a busca assim que encontrar
-        }
-    }
-        //Seleciona o elemento que vai ser substituído.
-        const elementoAtual = document.querySelector('.video-placeholder');
-        if (!elementoAtual) return;
+    // -----------------------------------------------------------------------
+    // CORREÇÃO DO PLAYER: usa getElementById + innerHTML
+    // O contêiner #player NUNCA é removido do DOM.
+    // Cada chamada simplesmente troca o conteúdo interno.
+    // -----------------------------------------------------------------------
+    const player = document.getElementById('player');
+    const urlVideo = currentLes.videoUrl;
 
     if (!urlVideo) {
-        const placeholderDiv = document.createElement('div');
-        
-        // Aplica as exatas mesmas classes e estilos que configurou
-        placeholderDiv.className = "video-placeholder bg-dark rounded-3 d-flex flex-column align-items-center justify-content-center text-white-50 mb-3 shadow-sm";
-        placeholderDiv.style.cssText = "min-height: 250px; aspect-ratio: 16/9;";
-        
-        // Mantém o seu HTML interno (Ícone + Texto)
-        placeholderDiv.innerHTML = `
-            <i class="ri-play-circle-line display-2" aria-hidden="true"></i>
-            <p class="small mt-2">Player de Vídeo Educacional</p>
-        `;
-
-        // Substitui o elemento na tela pela sua div padrão
-        elementoAtual.replaceWith(placeholderDiv);
-        return; 
-    }else {
-
-        // Cria o novo vídeo e aplica as configurações (como fizemos antes)
-        const videoCurso = document.createElement('video');
-        videoCurso.className = elementoAtual.className; 
-        videoCurso.style.cssText = elementoAtual.style.cssText;
-        videoCurso.style.width = '100%';
-        videoCurso.style.objectFit = 'cover';
-
-        // Insere a URL encontrada dinamicamente
-        videoCurso.src = urlVideo;
-        videoCurso.controls = true;
-        videoCurso.autoplay = true; // Como foi um clique do usuário, é interessante dar autoplay
-
-        // Substitui na tela
-        elementoAtual.replaceWith(videoCurso);
+        // Sem URL: exibe o placeholder padrão
+        player.innerHTML = `
+            <div class="d-flex flex-column align-items-center justify-content-center text-white-50 h-100" style="min-height: 250px;">
+                <i class="ri-play-circle-line display-2" aria-hidden="true"></i>
+                <p class="small mt-2">Player de Vídeo Educacional</p>
+            </div>`;
+    } else {
+        // Com URL: injeta o <video> responsivo dentro do contêiner fixo
+        player.innerHTML = `
+            <video
+                src="${urlVideo}"
+                controls
+                autoplay
+                style="width:100%; height:100%; display:block; object-fit:contain;">
+            </video>`;
     }
 }

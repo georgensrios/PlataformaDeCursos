@@ -124,13 +124,12 @@
 
                 <main class="col main-content-offset min-vh-100 p-3 p-md-5">
 
-                    <div id="saudacao" class="d-flex align-items-center gap-3 px-2 py-3 mb-4 bg-secondary bg-opacity-10 rounded-3 d-none d-lg-flex">
+                    <div id="saudacao" class="d-flex align-items-center gap-3 px-2 py-3 mb-4 bg-dark bg-opacity-100 rounded-3 d-none d-lg-flex">
                         <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center text-white fw-bold shadow-sm" style="width: 42px; height: 42px; min-width: 42px;">
                             <i class="ri-user-line fs-5"></i>
                         </div>
                         <div class="text-truncate">
-                            <span id="user-greeting" class="d-block text-white fw-semibold small">Olá, Aluno</span>
-                            <span class="text-muted" style="font-size: 0.75rem;">Estudante de SI</span>
+                            <h2 id="user-greeting" class="d-block text-white fw-semibold small">Olá, Aluno</h2>
                         </div>
                     </div>
 
@@ -146,49 +145,74 @@
                     </div>
 
                     <div id="developers-info" class="d-none mb-4">
-                        <section class="card p-3 p-md-4 border-0 shadow-sm bg-white rounded-3">
-                            <h2 class="h5 fw-bold mb-3"><i class="bi bi-person-vcard-fill me-2"></i>Desenvolvedores</h2>
-                            <div class="d-flex flex-column gap-3">
-                                <div class="d-flex align-items-center gap-3 p-3 bg-light rounded-3">
-                                    <img src="https://github.com/georgensrios.png" alt="Georgens Rios" class="rounded-circle" style="width: 48px; height: 48px; min-width: 48px; object-fit: cover;">
-                                    <div>
-                                        <strong class="d-block">Georgens Rios</strong>
-                                        <a href="https://github.com/georgensrios" target="_blank" class="text-decoration-none small">
-                                            <i class="bi bi-github me-1"></i>georgensrios
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center gap-3 p-3 bg-light rounded-3">
-                                    <img src="https://github.com/Matheus-Barbosa01.png" alt="Matheus Barbosa dos Santos" class="rounded-circle" style="width: 48px; height: 48px; min-width: 48px; object-fit: cover;">
-                                    <div>
-                                        <strong class="d-block">Matheus Barbosa dos Santos</strong>
-                                        <a href="https://github.com/Matheus-Barbosa01" target="_blank" class="text-decoration-none small">
-                                            <i class="bi bi-github me-1"></i>Matheus-Barbosa01
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center gap-3 p-3 bg-light rounded-3">
-                                    <img src="https://github.com/Vitthe-01.png" alt="Victor Paulo Teixeira" class="rounded-circle" style="width: 48px; height: 48px; min-width: 48px; object-fit: cover;">
-                                    <div>
-                                        <strong class="d-block">Victor Paulo Teixeira</strong>
-                                        <a href="https://github.com/Vitthe-01" target="_blank" class="text-decoration-none small">
-                                            <i class="bi bi-github me-1"></i>Vitthe-01
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center gap-3 p-3 bg-light rounded-3">
-                                    <img src="https://github.com/yasukevitu.png" alt="Vitu" class="rounded-circle" style="width: 48px; height: 48px; min-width: 48px; object-fit: cover;">
-                                    <div>
-                                        <strong class="d-block">Vitu</strong>
-                                        <a href="https://github.com/yasukevitu" target="_blank" class="text-decoration-none small">
-                                            <i class="bi bi-github me-1"></i>yasukevitu
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
+    <section class="card p-3 p-md-4 border-0 shadow-sm bg-white rounded-3">
+        <h2 class="h5 fw-bold mb-3"><i class="bi bi-person-vcard-fill me-2"></i>Desenvolvedores</h2>
+        
+        <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-3">
+            
+            <div class="col">
+                <div class="d-flex align-items-center gap-3 p-3 bg-light rounded-3 h-100">
+                    <img src="https://github.com/caio669max.png" alt="Caio Josué Ribeiro" class="rounded-circle" style="width: 48px; height: 48px; min-width: 48px; object-fit: cover;">
+                    <div class="text-truncate">
+                        <strong class="d-block text-truncate">Caio</strong>
+                        <a href="https://github.com/caio669max" target="_blank" class="text-decoration-none small text-truncate d-block">
+                            <i class="bi bi-github me-1"></i>caio669max
+                        </a>
                     </div>
-                    
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="d-flex align-items-center gap-3 p-3 bg-light rounded-3 h-100">
+                    <img src="https://github.com/georgensrios.png" alt="Georgens Rios" class="rounded-circle" style="width: 48px; height: 48px; min-width: 48px; object-fit: cover;">
+                    <div class="text-truncate">
+                        <strong class="d-block text-truncate">Georgens Rios</strong>
+                        <a href="https://github.com/georgensrios" target="_blank" class="text-decoration-none small text-truncate d-block">
+                            <i class="bi bi-github me-1"></i>georgensrios
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="d-flex align-items-center gap-3 p-3 bg-light rounded-3 h-100">
+                    <img src="https://github.com/Matheus-Barbosa01.png" alt="Matheus Barbosa dos Santos" class="rounded-circle" style="width: 48px; height: 48px; min-width: 48px; object-fit: cover;">
+                    <div class="text-truncate">
+                        <strong class="d-block text-truncate">Matheus Barbosa</strong>
+                        <a href="https://github.com/Matheus-Barbosa01" target="_blank" class="text-decoration-none small text-truncate d-block">
+                            <i class="bi bi-github me-1"></i>Matheus-Barbosa01
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="d-flex align-items-center gap-3 p-3 bg-light rounded-3 h-100">
+                    <img src="https://github.com/Vitthe-01.png" alt="Victor Paulo Teixeira" class="rounded-circle" style="width: 48px; height: 48px; min-width: 48px; object-fit: cover;">
+                    <div class="text-truncate">
+                        <strong class="d-block text-truncate">Victor Paulo</strong>
+                        <a href="https://github.com/Vitthe-01" target="_blank" class="text-decoration-none small text-truncate d-block">
+                            <i class="bi bi-github me-1"></i>Vitthe-01
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="d-flex align-items-center gap-3 p-3 bg-light rounded-3 h-100">
+                    <img src="https://github.com/yasukevitu.png" alt="João Victor da Silva" class="rounded-circle" style="width: 48px; height: 48px; min-width: 48px; object-fit: cover;">
+                    <div class="text-truncate">
+                        <strong class="d-block text-truncate">João Victor</strong>
+                        <a href="https://github.com/yasukevitu" target="_blank" class="text-decoration-none small text-truncate d-block">
+                            <i class="bi bi-github me-1"></i>yasukevitu
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</div>                   
                     <div id="sub-view-courses" class="fade-in-effect">
                         <section class="card p-3 p-md-4 border-0 shadow-sm mb-4 mb-md-5 bg-white rounded-3" aria-labelledby="progresso-heading">
                             <h1 id="progresso-heading" class="h4 fw-bold mb-1 mb-md-2">Seu Progresso Geral</h1>
@@ -274,9 +298,11 @@
         <div class="container-fluid px-0">
             <div class="row g-0">
                 <main class="col-12 col-lg-9 p-3 p-md-4 bg-white">
-                    <div id="player" class="video-placeholder bg-dark rounded-3 d-flex flex-column align-items-center justify-content-center text-white-50 mb-3 shadow-sm" style="min-height: 250px; aspect-ratio: 16/9;">
-                        <i class="ri-play-circle-line display-2" aria-hidden="true"></i>
-                        <p class="small mt-2">Player de Vídeo Educacional</p>
+                    <div id="player" class="bg-dark rounded-3 mb-3 shadow-sm overflow-hidden w-100" style="aspect-ratio: 16/9;">
+                        <div class="d-flex flex-column align-items-center justify-content-center text-white-50 h-100">
+                            <i class="ri-play-circle-line display-2" aria-hidden="true"></i>
+                            <p class="small mt-2">Player de Vídeo Educacional</p>
+                        </div>
                     </div>
                     <div class="mb-4">
                         <span id="lesson-module" class="badge bg-primary-subtle text-primary text-uppercase px-2 py-1 mb-2 d-inline-block text-truncate" style="max-width: 100%;">Módulo X</span>
