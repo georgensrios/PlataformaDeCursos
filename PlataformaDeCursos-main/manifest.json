@@ -1,0 +1,17 @@
+{
+  "name": "EduFlow - Plataforma de Ensino",
+  "short_name": "EduFlow",
+  "description": "Plataforma de ensino com cursos de desenvolvimento web",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "./assets/icone/flow-ico.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    }
+  ]
+}
