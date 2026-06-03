@@ -159,6 +159,12 @@ function setupEventListeners() {
     });
 
     document.getElementById("btn-back-home").addEventListener("click", () => {
+        // Encerrar video ao voltar: pausa e zera qualquer <video> em reproducao
+        // (aula atual e o institucional "Sobre") para que o audio nao continue tocando.
+        var __player = document.getElementById('player');
+        if (__player) { var __v = __player.querySelector('video'); if (__v) { try { __v.pause(); __v.currentTime = 0; } catch (e) {} } }
+        var __aboutPlayer = document.getElementById('about-player');
+        if (__aboutPlayer) { var __av = __aboutPlayer.querySelector('video'); if (__av) { try { __av.pause(); __av.currentTime = 0; } catch (e) {} } }
         navigateTo("home-screen");
     });
 
