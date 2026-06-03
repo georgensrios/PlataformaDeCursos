@@ -1,0 +1,100 @@
+
+
+/* Força o player de vídeo fictício a manter a proporção ideal em qualquer tela */
+.video-placeholder {
+    width: 100%;
+    aspect-ratio: 16/9;
+}
+
+/* Transições suaves aplicadas às barras de progresso do Bootstrap */
+.progress-bar {
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* Melhora a área de clique para interações em telas touch */
+.pointer {
+    cursor: pointer;
+}
+.hover-primary:hover {
+    color: #3B82F6 !important;
+}
+
+/* Fontes micro-ajustadas para notas e status no rodapé do mobile */
+.xx-small {
+    font-size: 0.75rem;
+}
+
+/* Ajuste específico para remover desalinhamento do checkbox estendido */
+.form-check {
+    padding-left: 1rem !important;
+}
+
+/* Efeito Hover sutil nos botões de listas de aula para Desktop */
+@media (min-width: 768px) {
+    .list-group-item-action {
+        transition: all 0.2s ease-in-out;
+    }
+    .list-group-item-action:hover {
+        padding-left: 1.25rem !important;
+        background-color: #f8fafc;
+    }
+}
+
+/* Ajustes de borda responsiva para separar o layout split apenas no desktop */
+@media (min-width: 992px) {
+    border-lg-top-0 {
+        border-top: 0 !important;
+    }
+    #lesson-notes {
+        min-height: 380px; /* Garante área de texto expandida no desktop */
+    }
+}
+        /* Estilos auxiliares para a barra lateral e efeitos de transição suave */
+        @media (min-width: 992px) {
+            .sidebar-fixed {
+                position: fixed;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                width: 280px;
+                z-index: 1030;
+                overflow-y: auto;
+            }
+            .main-content-offset {
+                margin-left: 280px;
+            }
+        }
+        .sidebar-link {
+            transition: all 0.2s ease;
+            border-left: 4px solid transparent;
+            cursor: pointer;
+        }
+        .sidebar-link:hover, .sidebar-link.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #fff !important;
+        }
+        .sidebar-link.active {
+            border-left-color: #fff;
+            font-weight: 600;
+        }
+        @media (min-width: 992px) {
+            #hamburguer.d-none,
+            #log-off.d-none {
+                display: flex !important;
+            }
+        }
+        /* Safe area para PWA (notch iPhone) */
+        body {
+            padding-top: env(safe-area-inset-top);
+        }
+        .text-justify {
+            text-align: justify !important;
+        }
+        /* Classe para transição suave de fade-in ao trocar de tela */
+        .fade-in-effect {
+            animation: fadeIn 0.4s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }

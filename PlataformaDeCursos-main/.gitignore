@@ -1,0 +1,4 @@
+node_modules/
+--index.html
+--script.js
+git push --set-upstream origin main
